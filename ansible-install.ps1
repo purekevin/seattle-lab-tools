@@ -212,6 +212,17 @@ $YAML += @"
     $script = "cd /usr/share/kubespray; ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml"
     Write-Host "Running CMD on $ansible_node_name :  $script"
     Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+
+    Write-Host "Sleepint 120 seconds for the kubernetes cluster to get ready..."
+    Start-Sleep -seconds 120
+
+    $script = "cd /usr/share/kubespray; kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.26/deploy/local-path-storage.yaml"
+    Write-Host "Installing local storageclass - Running CMD on $control_node_name :  $script"
+    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+
+    $script = "cd /usr/share/kubespray; kubectl patch storageclass local-path -p `'{`"metadata`": {`"annotations`":{`"storageclass.kubernetes.io/is-default-class`":`"true`"}}}`'"
+    Write-Host "Making local storage the default - Running CMD on $control_node_name :  $script"
+    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
 }
 else
 {
