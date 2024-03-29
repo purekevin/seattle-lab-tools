@@ -1,4 +1,13 @@
-For the whiners from Jersey....
+This set of scripts builds a cluster ov VMs, and optionally, Ansible, kubernetes, and the elastic operator 
+
+Once the prerequiemnts are met, the following scripts are run:
+1.  deploy-u2204.ps1
+   Deploys an ansible master, a kubernetes control node, and any number of worker nodes
+2.  install-ansible.ps1
+   Prompts user to install ansible, which is needed to deploy kubernetes using kubespray, but can be skipped if ansible is already installed
+   Prompts user to install kubernetes - optional if you only want a cluster with ansible running
+3.  install-eck.sh
+   This srcipt is run on the kubernetes control node to deploy the elastic operator
 
 Pre-reqs
 ---------------------------------------------------------------------------------------------------------------
