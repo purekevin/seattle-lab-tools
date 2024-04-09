@@ -16,6 +16,8 @@ Download VMWare PowerCLI
 You will need access to an Ubuntu 22.04 template with the following commands/configurations set:
 1.  Modify /etc/ssh/sshd_config and change PermitRootLogin  to “PermitRootLogin yes”
 2.  Turn off the GUI login by running "sudo systemctl set-default multi-user"
+3.  Make sure you know the root password
+4.  Ensure the networking is setup as static and not DHCP
 
 Update script with your Lab/vcenter defaults 
 	vCenter Customization script for your liinux VM - Update for your labs env - ntp, default route, etc.
