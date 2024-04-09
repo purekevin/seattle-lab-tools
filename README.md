@@ -9,11 +9,13 @@ Once the requirements are met, the following scripts are run:
 
 Pre-reqs
 ---------------------------------------------------------------------------------------------------------------
-Download PowerShell for MacOS
+Download PowerShell for your local platform
 
 Download VMWare PowerCLI
 
-These tools are built to run a generic Ubuntu 22.04 VM
+You will need access to an Ubuntu 22.04 template with the following commands/configurations set:
+	1.  Modify /etc/ssh/sshd_config and change PermitRootLogin  to “PermitRootLogin yes”
+ 	2.  Turn off the GUI login by running "sudo systemctl set-default multi-user"
 
 Update script with your Lab/vcenter defaults 
 	vCenter Customization script for your liinux VM - Update for your labs env - ntp, default route, etc.
