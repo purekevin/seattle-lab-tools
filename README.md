@@ -20,10 +20,8 @@ You will need access to an Ubuntu 22.04 template with the following commands/con
 4.  Ensure the networking is setup as static and not DHCP
 
 Update script with your Lab/vcenter defaults 
-	vCenter Customization script for your liinux VM - Update for your labs env - ntp, default route, etc.
-	Know your root password and set it in the template
-  Enable root ssh:  modify /etc/ssh/sshd_config:
-	PermitRootLogin yes
+1. vCenter Customization script for your liinux VM - There is a customization script template/XML file in this rep.  You can use your own, or download and import this XML file and modify to work in your environment.
+   Update for your labs env - ntp, default route, etc.
   
 Update PowerCLI config to ignore invalid certs
     Set-PowerCLIConfiguration -InvalidCertificateAction Ignore
