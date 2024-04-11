@@ -228,7 +228,7 @@ $YAML += @"
     Write-Host "Installing helm :  $script"
     Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
 
-    $script = "helm repo add elastic https://helm.elastic.co; helm repo add elastic https://helm.elastic.co; helm repo update; helm install elastic-operator elastic/eck-operator -n elastic-system --create-namespace"
+    $script = "helm repo add elastic https://helm.elastic.co; helm repo add elastic https://helm.elastic.co; helm repo update; helm install es-kb-quickstart elastic/eck-stack -n elastic-stack --create-namespace"
     Write-Host "Install elastic operator via helm...:  $script"
     Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
 }
