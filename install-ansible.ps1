@@ -32,33 +32,33 @@ if ( $response -eq "y" )
     Write-Host "Running CMD:  $script"
     $script='ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" -q <<< y'
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
     Write-Host "Running CMD on $control_node_name :  $script"
-    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     $script='apt install sshpass -y'
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
     Write-Host "Running CMD on $control_node_name :  $script"
-    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     $ip_address="$Subnet.$IP"
     $line="$ip_address $ansible_node_name"
     $script="echo $line >>/etc/hosts"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
     Write-Host "Running CMD on $control_node_name :  $script"
-    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
     $IP = [int]$IP + 1
 
     $ip_address="$Subnet.$IP"
     $line="$ip_address $control_node_name"
     $script="echo $line >>/etc/hosts"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
-    $script="sshpass -p Pureuser1! ssh-copy-id -o StrictHostKeyChecking=no root@$control_node_name"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
+    $script="sshpass -p $vCenterPass ssh-copy-id -o StrictHostKeyChecking=no root@$control_node_name"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
     $IP = [int]$IP + 1
 
     for ($i=1; $i -le $Num_nodes; $i++)
@@ -68,32 +68,32 @@ if ( $response -eq "y" )
       $hostname="$Node_name_base$i"
       $script="echo $line >>/etc/hosts"
       Write-Host "Running CMD on $ansible_node_name :  $script"
-      Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+      Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
       Write-Host "Running CMD on $control_node_name :  $script"
-      Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
-      $script="sshpass -p Pureuser1! ssh-copy-id -o StrictHostKeyChecking=no root@$hostname"
+      Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
+      $script="sshpass -p $vCenterPass ssh-copy-id -o StrictHostKeyChecking=no root@$hostname"
       Write-Host "Running CMD on $ansible_node_name :  $script"
-      Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+      Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
       Write-Host "Running CMD on $control_node_name :  $script"
-      Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+      Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
       $IP = [int]$IP + 1
     }
 
     $script="apt-add-repository ppa:ansible/ansible -y"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
     
     $script="apt update"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     $script="apt install ansible -y"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     $script="apt install python3-pip -y"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 }
 
 #   Run/install kubernetes via ansible-playbook 
@@ -108,21 +108,21 @@ if ( $response -eq "y" )
     #####################  Get kubespray  #############################################
     $script="cd /usr/share; git clone https://github.com/kubernetes-sigs/kubespray"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     $script="cd /usr/share/kubespray; pip install -r requirements.txt"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     #   pip3 install -r contrib/inventory_builder/requirements.txt
     $script="cd /usr/share/kubespray; pip install -r requirements.txt"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     #   cp -pr inventory/sample inventory/mycluster
     $script="cd /usr/share/kubespray; cp -pr inventory/sample inventory/mycluster"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     ############################################################################
     #####################  Creating k8s hosts yaml file  #######################
@@ -205,32 +205,32 @@ $YAML += @"
     Out-File -FilePath file.$timestamp -InputObject $YAML
 
     Write-Host "CMD:  copying file..."
-    Copy-VMGuestFile -Source file.$timestamp -Destination /usr/share/kubespray/inventory/mycluster/hosts.yaml -VM $ansible_node_name -LocalToGuest -GuestUser root -GuestPassword "Pureuser1!" -Force
+    Copy-VMGuestFile -Source file.$timestamp -Destination /usr/share/kubespray/inventory/mycluster/hosts.yaml -VM $ansible_node_name -LocalToGuest -GuestUser root -GuestPassword "$vCenterPass" -Force
 
     Remove-Item -Force file.$timestamp
 
     $script = "cd /usr/share/kubespray; ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml"
     Write-Host "Running CMD on $ansible_node_name :  $script"
-    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $ansible_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     Write-Host "Sleepint 120 seconds for the kubernetes cluster to get ready..."
     Start-Sleep -seconds 120
 
     $script = "cd /usr/share/kubespray; kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.26/deploy/local-path-storage.yaml"
     Write-Host "Installing local storageclass - Running CMD on $control_node_name :  $script"
-    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     $script = "cd /usr/share/kubespray; kubectl patch storageclass local-path -p `'{`"metadata`": {`"annotations`":{`"storageclass.kubernetes.io/is-default-class`":`"true`"}}}`'"
     Write-Host "Making local storage the default - Running CMD on $control_node_name :  $script"
-    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     $script = "snap install helm --classic"
     Write-Host "Installing helm :  $script"
-    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 
     $script = "helm repo add elastic https://helm.elastic.co; helm repo add elastic https://helm.elastic.co; helm repo update; helm install es-kb-quickstart elastic/eck-stack -n elastic-stack --create-namespace"
     Write-Host "Install elastic operator via helm...:  $script"
-    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "Pureuser1!"
+    Invoke-VMScript -VM $control_node_name -ScriptText "$script" -GuestUser root -GuestPassword "$vCenterPass"
 }
 else
 {
